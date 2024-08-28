@@ -16,8 +16,9 @@ const audioPlay = new Audio('./sonidos/play.wav');
 const audioPausa = new Audio('./sonidos/pause.mp3');
 const audioTiempoFinalizado = new Audio('./sonidos/beep.mp3');
 
+
 let tiempoTranscurridoEnSegundos = 5;
-let idIntervalo = null;
+let idIntervalo: null | number = null;
 
 musica.loop = true;
 
@@ -47,7 +48,7 @@ botonLargo.addEventListener('click', () => {
     botonLargo.classList.add('active');
 });
 
-function cambiarContexto(contexto) {
+function cambiarContexto(contexto: string) {
     mostrarTiempo();
     botones.forEach(function (botonContexto) {
         botonContexto.classList.remove('active');
@@ -108,7 +109,11 @@ function iniciarOpausar() {
 }
 
 function reiniciar() {
-    clearInterval(idIntervalo);
+    // Si existe entonces hazlo
+    //
+    if (idIntervalo) {
+        clearInterval(idIntervalo);
+    }
     textoIniciarPausar.textContent = "Comenzar";
     iconoIniciarPausar.setAttribute('src', `/imagenes/play_arrow.png`);
     idIntervalo = null;
